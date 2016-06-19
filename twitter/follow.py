@@ -20,7 +20,7 @@ class Follow:
             data = request.get_json()
         except:
             print "Error: invalid json input data"
-        """
+
         if "profile_api" not in data.keys():
             dict_auth = ob_user.getProfileApi()
             profile_api = dict_auth['id_twitter']
@@ -30,7 +30,7 @@ class Follow:
             dict_auth = ob_user.getTokensApi(profile_api)
 
         thandle = ob_authentication.twitter(dict_auth)
-        """
+
         print data.keys()
 
         """

@@ -20,7 +20,7 @@ class ProfilesApi(Base):
     __tablename__ = 'profiles_api'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    twitter_handle = Column(String(100), nullable=False)
+    twitter_handle = Column(String(100), unique=True,  nullable=False)
     key_consumer = Column(String(100), nullable=False)
     secret_consumer = Column(String(100), nullable=False)
     key_access = Column(String(100), nullable=False)
