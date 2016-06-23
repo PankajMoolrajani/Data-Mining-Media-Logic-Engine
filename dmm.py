@@ -21,11 +21,11 @@ def login_required(f):
 
 
 
-@app.route('/logout')
-@login_required
+@app.route('/logout', methods=['POST', 'GET'])
 def logout():
     session.pop('logged_in',None)
-    return redirect(url_for('hello_world'))
+    error="You are logged out"
+    return render_template("login.html", error=error)
      
          
 @app.route('/login', methods=['POST', 'GET'])
@@ -36,10 +36,17 @@ def login():
            error="Invalid Credentials. Please try again"
        else:
            session['logged_in']=True
+           return render_template("dashboard.html")
     return render_template("login.html", error=error)
 
 
-
+@app.route('/do')
+@login_required
+def do():
+    return render_template("dashboard.html")
+ 
+     
+         
 @app.route('/')
 def hello_world():
       return render_template("login.html")
