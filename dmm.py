@@ -1,10 +1,19 @@
 import pip
 from flask import Flask, render_template,redirect,url_for,request,session,flash
 from functools import wraps
+from datetime import timedelta
 
 
 app = Flask(__name__)
 app.secret_key="log in"
+
+
+@app.before_request
+def before_request():
+     session.permanent = True
+     app.permanent_session_lifetime =timedelta(minutes=20)
+ 
+
 
 
 def login_required(f):
