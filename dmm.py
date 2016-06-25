@@ -12,7 +12,7 @@ def login_required(f):
     @wraps(f)
     def wrap(*args,**kwargs):
         if 'logged_in' in session:
-            return f(*args,**kargs)
+            return f(*args,**kwargs)
         else:
             error='Please login first'
             return render_template("login.html", error=error)
@@ -22,6 +22,7 @@ def login_required(f):
 
 
 @app.route('/logout', methods=['POST', 'GET'])
+@login_required
 def logout():
     session.pop('logged_in',None)
     error="You are logged out"
