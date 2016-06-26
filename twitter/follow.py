@@ -1,7 +1,7 @@
 from flask import Flask, request
 from user import User
 from authentication import Authentication
-from db import DB
+#from db import DB
 app = Flask(__name__)
 
 from twitter import app
