@@ -1,20 +1,23 @@
 import oauth2 as oauth
 import json
+from schema import ProfilesApi
+from db import DB
 
 class Authentication:
     def __init__(self):
         pass
 
-    def twitter(self, dict_auth):
+    def twitter(self, profile_api):
 
-        key_consumer = dict_auth['key_consumer']
-        secret_consumer = dict_auth['secret_consumer']
-        key_access = dict_auth['key_access']
-        secret_access = dict_auth['secret_access']
+        session = DB().session()
+        row = session.query(ProfilesApi).filter_by(twitter_handle=profile_api).first()
+        key_consumer = row.key_consumer
+        secret_consumer = row.secret_consumer
+        key_access = row.key_access
+        secret_access = row.secret_access
 
         consumer = oauth.Consumer(key=key_consumer, secret=secret_consumer)
         access_token = oauth.Token(key=key_access, secret=secret_access)
-
         client = oauth.Client(consumer, access_token)
 
         return client
