@@ -19,6 +19,6 @@ def main(filename, app_url, profile_api):
 
 if __name__ == "__main__":
     filename = 'profile_users.csv'
-    app_url = "http://localhost:5000"
+    app_url = "http://dataminingmedia.com:5000"
     profile_api = 'drew_groove'
     main(filename, app_url, profile_api)
