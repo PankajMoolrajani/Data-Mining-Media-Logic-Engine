@@ -1,6 +1,8 @@
 from db import DB
 from schema import ProfilesApi
 from flask import Flask, request
+
+from authentication import Authentication
 import urlparse
 
 app = Flask(__name__)
@@ -8,21 +10,19 @@ app = Flask(__name__)
 from twitter import app
 
 class User:
-
     @app.route("/profiles/api/create", methods=['POST'])
     def createProfileApi():
-        print "create profile"
         try:
-            dict_data = request.get_json()
-            print  dict_data
+            req_json = request.get_json()
         except Exception, e:
             print e
+
         ob = ProfilesApi()
-        ob.twitter_handle = dict_data['twitter_handle']
-        ob.key_consumer = dict_data['key_consumer']
-        ob.secret_consumer = dict_data['secret_consumer']
-        ob.key_access = dict_data['key_access']
-        ob.secret_access = dict_data['secret_access']
+        ob.twitter_handle = req_json['twitter_handle']
+        ob.key_consumer = req_json['key_consumer']
+        ob.secret_consumer = req_json['secret_consumer']
+        ob.key_access = req_json['key_access']
+        ob.secret_access = req_json['secret_access']
         row = ob
         ob_db = DB()
         ob_db.add_row(row)
@@ -31,19 +31,7 @@ class User:
 
     @app.route("/profiles/users/get/retweeters", methods=['GET'])
     def getRetweetersId():
-        print "retweeters"
         tweet_id= request.args.get('tweet_id')
         profile_api = request.args.get('profile_api')
-        ob = User()
-        thandle = ob.authentication(profile_api)
-        print thandle
-        print profile_api
-        print tweet_id
-
-
-    def authentication(self, profile_api):
-        ob = ProfilesApi()
-        session = DB().session()
-        row = session.query(ProfilesApi).filter_by(twitter_handle=profile_api).first()
-        print row.twitter_handle
-        return "ok"
+        thandle = Authentication().twitter(profile_api)
+        return "in dev"
