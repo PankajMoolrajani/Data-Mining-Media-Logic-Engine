@@ -24,6 +24,9 @@ class Follow:
         res, data = api_handler.request(endpoint, "POST")
         return data
 
+    @app.route("/health", methods=['GET'])
+    def health():
+        return 'health_status: OK'
 
 
 
