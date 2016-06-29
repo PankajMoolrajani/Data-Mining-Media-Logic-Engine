@@ -5,7 +5,7 @@ from datetime import timedelta
 
 
 app = Flask(__name__)
-app.secret_key="log in"
+app.secret_key="key1234"
 
 
 @app.before_request
