@@ -1,4 +1,5 @@
 import pip
+import os
 from flask import Flask, render_template,redirect,url_for,request,session,flash
 from functools import wraps
 from datetime import timedelta
@@ -6,7 +7,7 @@ from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key="key1234"
-
+app.config['UPLOAD_FOLDER']='C:/opt/IBM/WebSphere/Profiles/data/pdf_report/'
 
 @app.before_request
 def before_request():
@@ -55,7 +56,20 @@ def login():
 def do():
     return render_template("dashboard.html")
  
-     
+ 
+@app.route('/filesave', methods=['POST', 'GET'])
+@login_required
+def filesave():
+    file=request.files['file']
+    print "success"
+    try:
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        print file_path
+        file.save(file_path)
+        
+    except Exception as ex:
+      print (ex)		  
+    return render_template("dashboard.html") 
          
 @app.route('/')
 def hello_world():
