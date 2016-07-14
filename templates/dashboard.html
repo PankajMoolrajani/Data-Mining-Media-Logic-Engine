@@ -18,7 +18,11 @@ $(function() {
             processData: false,
             async: false,
             success: function(data) {
-                console.log('Success!');
+            	if (data.trim()== "1") {
+					alert("File Uploaded Succesfully");
+				} else {
+					alert("File can not be uploaded Succesfully");
+				}
             },
         });
     });

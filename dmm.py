@@ -66,10 +66,10 @@ def filesave():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         print file_path
         file.save(file_path)
-        
+        return "1"
     except Exception as ex:
       print (ex)		  
-    return render_template("dashboard.html") 
+      return "2"
          
 @app.route('/')
 def hello_world():
