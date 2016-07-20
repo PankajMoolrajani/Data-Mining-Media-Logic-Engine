@@ -20,7 +20,7 @@ def before_request():
 
 @app.route('/')
 def slash():
-    return "DMM Logic Engine"
+    return "DMM Logic Engine !"
 
 
 def login_required(f):
