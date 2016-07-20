@@ -7,7 +7,7 @@ CORS(app)
 
 @app.route('/')
 def slash():
-    return "DMM Logic Engine"
+    return "DMM Logic Engine !"
 
 
 if __name__ == '__main__':
