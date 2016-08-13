@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, TIMESTAMP, text
 from sqlalchemy import ForeignKey
 
 Base = declarative_base()
@@ -33,3 +33,14 @@ class ProfilesUsers(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100), nullable=False, primary_key=True)
+
+
+class AccessTokens(Base):
+
+    __tablename__ = 'access_tokens'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    token = Column(String(100), nullable=False)
+    state = Column(String(100), nullable=False) #state can be valid or invalid
+    ts_create = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'))
+    ts_update = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))

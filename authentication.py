@@ -1,7 +1,17 @@
 import oauth2 as oauth
-import json
+import random
+import hashlib
+import string
+
+from flask import Blueprint , request
+from flask_cors import CORS
+
 from schema import ProfilesApi
 from db import DB
+
+api_authentication = Blueprint('api_authentication', __name__)
+CORS(api_authentication)
+
 
 class Authentication:
     def __init__(self):
@@ -21,6 +31,18 @@ class Authentication:
         client = oauth.Client(consumer, access_token)
 
         return client
+
+
+@api_authentication.route('/token/get', methods=['POST'])
+def getAuthToken():
+        if request.form['email'] != 'admin@gmail.com' or request.form['password'] != '123':
+            return "INVALID CREDENTIALS. PLEASE TRY AGAIN"
+        else:
+            token = hashlib.sha256()
+            token.update(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6)))
+            token.digest()
+            return token.digest()
+
 
 if __name__ == "__main__":
     ob = Authentication()

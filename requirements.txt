@@ -3,5 +3,3 @@ sqlalchemy
 oauth2
 gevent
 flask_cors
-functools
-datetime
