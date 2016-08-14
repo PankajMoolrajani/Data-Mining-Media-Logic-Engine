@@ -44,3 +44,21 @@ class AccessTokens(Base):
     state = Column(String(100), nullable=False) #state can be valid or invalid
     ts_create = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'))
     ts_update = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
+
+
+class FollowingStatus(Base):
+
+    __tablename__ = 'following_status'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    id_profile_api = Column(Integer, ForeignKey('profiles_api.id'), nullable=False)
+    id_profile_users = Column(Integer, ForeignKey('profiles_users.id'), nullable=False)
+    status = Column(String(100), nullable=False)
+    ts_create = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'))
+    ts_update = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'))
+
+
+    def __init__(self, id_profile_api, id_profile_users,status):
+        self.id_profile_api = id_profile_api
+        self.id_profile_users = id_profile_users
+        self.status = status
